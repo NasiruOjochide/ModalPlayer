@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var showPlayer: Bool = false
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -16,6 +19,12 @@ struct ContentView: View {
             Text("Hello, world!")
         }
         .padding()
+        .onTapGesture {
+            showPlayer = true
+        }
+        .sheet(isPresented: $showPlayer) {
+            PlayerScreen()
+        }
     }
 }
 

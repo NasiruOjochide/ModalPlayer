@@ -7,19 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29227BD02ABD9AC700383C31 /* PlayerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227BCF2ABD9AC700383C31 /* PlayerScreen.swift */; };
 		2963634D2ABD667000B64376 /* ModalPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963634C2ABD667000B64376 /* ModalPlayerApp.swift */; };
 		2963634F2ABD667000B64376 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963634E2ABD667000B64376 /* ContentView.swift */; };
 		296363512ABD667100B64376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296363502ABD667100B64376 /* Assets.xcassets */; };
 		296363552ABD667100B64376 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296363542ABD667100B64376 /* Preview Assets.xcassets */; };
+		2963635D2ABD66E300B64376 /* PlayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963635C2ABD66E300B64376 /* PlayerButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29227BCF2ABD9AC700383C31 /* PlayerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScreen.swift; sourceTree = "<group>"; };
 		296363492ABD667000B64376 /* ModalPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModalPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2963634C2ABD667000B64376 /* ModalPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPlayerApp.swift; sourceTree = "<group>"; };
 		2963634E2ABD667000B64376 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		296363502ABD667100B64376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		296363522ABD667100B64376 /* ModalPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ModalPlayer.entitlements; sourceTree = "<group>"; };
 		296363542ABD667100B64376 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2963635C2ABD66E300B64376 /* PlayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29227BD12ABD9C4700383C31 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				29227BD22ABD9D0700383C31 /* Views */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		29227BD22ABD9D0700383C31 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2963635C2ABD66E300B64376 /* PlayerButton.swift */,
+				29227BCF2ABD9AC700383C31 /* PlayerScreen.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		296363402ABD667000B64376 = {
 			isa = PBXGroup;
 			children = (
@@ -52,8 +73,8 @@
 		2963634B2ABD667000B64376 /* ModalPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				2963635B2ABD668D00B64376 /* Source */,
 				2963634C2ABD667000B64376 /* ModalPlayerApp.swift */,
-				2963634E2ABD667000B64376 /* ContentView.swift */,
 				296363502ABD667100B64376 /* Assets.xcassets */,
 				296363522ABD667100B64376 /* ModalPlayer.entitlements */,
 				296363532ABD667100B64376 /* Preview Content */,
@@ -67,6 +88,15 @@
 				296363542ABD667100B64376 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2963635B2ABD668D00B64376 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				2963634E2ABD667000B64376 /* ContentView.swift */,
+				29227BD12ABD9C4700383C31 /* Player */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +169,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2963635D2ABD66E300B64376 /* PlayerButton.swift in Sources */,
 				2963634F2ABD667000B64376 /* ContentView.swift in Sources */,
+				29227BD02ABD9AC700383C31 /* PlayerScreen.swift in Sources */,
 				2963634D2ABD667000B64376 /* ModalPlayerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
