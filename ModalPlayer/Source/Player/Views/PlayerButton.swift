@@ -13,56 +13,34 @@ struct PlayerButton: View {
     @Binding var progress: CGFloat
     
     var body: some View {
-        if isPlaying {
-            Circle()
-                .fill(.yellow)
-                .frame(maxWidth: 100)
-                .overlay {
-                    Image(systemName: "play.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: 40)
-                        .foregroundColor(.black)
-                        .offset(x: 5)
-                }
-                .onTapGesture {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        isPlaying = false
-                    }
-                }
-        } else {
-            Circle()
-                .fill(.yellow)
-                .frame(maxWidth: 100)
-                .overlay {
-                    Image(systemName: "pause.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxHeight: 30)
-                }
-                .overlay {
+        Circle()
+            .fill(.yellow)
+            .overlay {
+                Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+            }
+            .overlay {
+                if isPlaying {
                     Circle()
                         .stroke(.white, lineWidth: 2)
-                        .padding(5)
+                        .padding(2)
                         .overlay {
                             Circle()
                                 .trim(from: 0, to: progress)
                                 .stroke(.black, lineWidth: 2)
                                 .rotationEffect(.degrees(-90))
-                                .padding(5)
+                                .padding(2)
                         }
                 }
-                .onTapGesture {
-                    withAnimation(.easeInOut(duration: 1)) {
-                        isPlaying = true
-                    }
-                }
-        }
+            }
+            .onTapGesture {
+                isPlaying.toggle()
+            }
+        
     }
 }
 
 struct PlayerButton_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerButton(isPlaying: .constant(false), progress: .constant(0.4))
+        PlayerButton(isPlaying: .constant(true), progress: .constant(0.4))
     }
 }

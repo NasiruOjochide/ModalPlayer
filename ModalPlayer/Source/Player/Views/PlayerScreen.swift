@@ -19,6 +19,7 @@ struct PlayerScreen: View {
             
             PlayerButton(isPlaying: $isPlaying, progress: $playerProgress)
                 .padding()
+                .frame(maxWidth: 80)
         }
     }
 }
