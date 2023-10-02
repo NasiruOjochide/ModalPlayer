@@ -10,16 +10,38 @@ import SwiftUI
 struct PlayerScreen: View {
     
     @State private var isPlaying: Bool = false
-    @State private var playerProgress: CGFloat = 0.2
+    @State private var musicLoaded: Bool = false
+    @State private var playerProgress: CGFloat = 0.0
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Text("Hello by Adele")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            PlayerButton(isPlaying: $isPlaying, progress: $playerProgress)
+            HStack {
+                PlayerButton(isPlaying: $isPlaying, progress: $playerProgress) {
+                    if !musicLoaded {
+                        PlayerService.shared.startAudio()
+                        musicLoaded = true
+                    } else {
+                        if isPlaying {
+                            PlayerService.shared.pause()
+                        } else {
+                            PlayerService.shared.play()
+                        }
+                    }
+                }
+                .onReceive(PlayerService.shared.publisher) { currentTime in
+                    playerProgress = CGFloat(currentTime)
+                }
+                .onReceive(PlayerService.shared.musicEnded) { value in
+                    if value {
+                        isPlaying = false
+                    }
+                }
                 .padding()
                 .frame(maxWidth: 80)
+            }
         }
     }
 }

@@ -13,6 +13,7 @@
 		296363512ABD667100B64376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296363502ABD667100B64376 /* Assets.xcassets */; };
 		296363552ABD667100B64376 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296363542ABD667100B64376 /* Preview Assets.xcassets */; };
 		2963635D2ABD66E300B64376 /* PlayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963635C2ABD66E300B64376 /* PlayerButton.swift */; };
+		296A49A32AC6262300FF8017 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A49A22AC6262300FF8017 /* PlayerService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,8 @@
 		296363522ABD667100B64376 /* ModalPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ModalPlayer.entitlements; sourceTree = "<group>"; };
 		296363542ABD667100B64376 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2963635C2ABD66E300B64376 /* PlayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButton.swift; sourceTree = "<group>"; };
+		296A49A22AC6262300FF8017 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
+		296A49A62AC6403400FF8017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +43,7 @@
 		29227BD12ABD9C4700383C31 /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				296A49A12AC625F300FF8017 /* ViewModel */,
 				29227BD22ABD9D0700383C31 /* Views */,
 			);
 			path = Player;
@@ -73,6 +77,7 @@
 		2963634B2ABD667000B64376 /* ModalPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				296A49A62AC6403400FF8017 /* Info.plist */,
 				2963635B2ABD668D00B64376 /* Source */,
 				2963634C2ABD667000B64376 /* ModalPlayerApp.swift */,
 				296363502ABD667100B64376 /* Assets.xcassets */,
@@ -93,10 +98,18 @@
 		2963635B2ABD668D00B64376 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				2963634E2ABD667000B64376 /* ContentView.swift */,
 				29227BD12ABD9C4700383C31 /* Player */,
+				2963634E2ABD667000B64376 /* ContentView.swift */,
+				296A49A22AC6262300FF8017 /* PlayerService.swift */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		296A49A12AC625F300FF8017 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2963635D2ABD66E300B64376 /* PlayerButton.swift in Sources */,
+				296A49A32AC6262300FF8017 /* PlayerService.swift in Sources */,
 				2963634F2ABD667000B64376 /* ContentView.swift in Sources */,
 				29227BD02ABD9AC700383C31 /* PlayerScreen.swift in Sources */,
 				2963634D2ABD667000B64376 /* ModalPlayerApp.swift in Sources */,
@@ -299,6 +313,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ModalPlayer/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ModalPlayer/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -335,6 +351,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"ModalPlayer/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ModalPlayer/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

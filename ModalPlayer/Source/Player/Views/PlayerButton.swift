@@ -11,6 +11,7 @@ struct PlayerButton: View {
     
     @Binding var isPlaying: Bool
     @Binding var progress: CGFloat
+    var playSound: () -> Void
     
     var body: some View {
         Circle()
@@ -33,6 +34,7 @@ struct PlayerButton: View {
                 }
             }
             .onTapGesture {
+                playSound()
                 isPlaying.toggle()
             }
         
@@ -41,6 +43,6 @@ struct PlayerButton: View {
 
 struct PlayerButton_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerButton(isPlaying: .constant(true), progress: .constant(0.4))
+        PlayerButton(isPlaying: .constant(true), progress: .constant(0.4), playSound: {})
     }
 }
