@@ -50,7 +50,7 @@ class PlayerService: ObservableObject {
         let url = URL(string: "https://mp3bob.ru/download/muz/Rum-pum-pum.mp3")
         
         let playerItem: AVPlayerItem = AVPlayerItem(url: url!)
-        if let player = player {
+        if let player {
             player.replaceCurrentItem(with: playerItem)
         } else {
             player = AVPlayer(playerItem: playerItem)
@@ -67,35 +67,32 @@ class PlayerService: ObservableObject {
     }
     
     func play() {
-        if let player = player {
-            player.play()
-            timeOberserToken = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.5, preferredTimescale: 600), queue: nil) { [weak self] time in
-                guard let self = self else { return }
-                if time.seconds == self.getAudioDuration() {
-                    player.seek(to: .zero)
-                    self.publisher.send(0)
-                    self.musicEnded.send(true)
-                } else {
-                    let progress = time.seconds / self.getAudioDuration()
-                    self.publisher.send(progress)
-                }
+        guard let player else { return }
+        player.play()
+        timeOberserToken = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.5, preferredTimescale: 600), queue: nil) { [weak self] time in
+            guard let self else { return }
+            if time.seconds == self.getAudioDuration() {
+                player.seek(to: .zero)
+                self.publisher.send(0)
+                self.musicEnded.send(true)
+            } else {
+                let progress = time.seconds / self.getAudioDuration()
+                self.publisher.send(progress)
             }
         }
     }
     
     func pause() {
-        if let player = player {
-            player.pause()
-            if let token = timeOberserToken {
-                player.removeTimeObserver(token)
-                timeOberserToken = nil
-            }
+        guard let player else { return }
+        player.pause()
+        if let token = timeOberserToken {
+            player.removeTimeObserver(token)
+            timeOberserToken = nil
         }
     }
     
     func getAudioDuration() -> Double {
-        guard let player = player else { return 100 }
-        return player.currentItem?.duration.seconds ?? 1        
+        return player?.currentItem?.duration.seconds ?? 1
     }
     
 }
