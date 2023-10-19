@@ -9,11 +9,7 @@ import AVFoundation
 import Combine
 import Foundation
 
-class PlayerService {
-    
-    static let shared = PlayerService()
-    
-    private init() {}
+class PlayerService: ObservableObject {
     
     deinit {
         cancellable?.cancel()

@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct ModalPlayerApp: App {
+    
+    @StateObject var playerService = PlayerService()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(playerService)
         }
     }
 }

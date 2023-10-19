@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PlayerScreen: View {
     
+    @EnvironmentObject var playerService: PlayerService
     @State private var isPlaying: Bool = false
     @State private var musicLoaded: Bool = false
     @State private var playerProgress: CGFloat = 0.0
@@ -21,20 +22,20 @@ struct PlayerScreen: View {
             HStack {
                 PlayerButton(isPlaying: $isPlaying, progress: $playerProgress) {
                     if !musicLoaded {
-                        PlayerService.shared.startAudio()
+                        playerService.startAudio()
                         musicLoaded = true
                     } else {
                         if isPlaying {
-                            PlayerService.shared.pause()
+                            playerService.pause()
                         } else {
-                            PlayerService.shared.play()
+                            playerService.play()
                         }
                     }
                 }
-                .onReceive(PlayerService.shared.publisher) { currentTime in
+                .onReceive(playerService.publisher) { currentTime in
                     playerProgress = CGFloat(currentTime)
                 }
-                .onReceive(PlayerService.shared.musicEnded) { value in
+                .onReceive(playerService.musicEnded) { value in
                     if value {
                         isPlaying = false
                     }
