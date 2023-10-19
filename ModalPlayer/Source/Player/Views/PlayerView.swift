@@ -10,8 +10,6 @@ import SwiftUI
 struct PlayerView: View {
     
     @EnvironmentObject var playerService: PlayerService
-    @State private var isPlaying: Bool = false
-    @State private var musicLoaded: Bool = false
     @State private var playerProgress: CGFloat = 0.0
     
     var body: some View {
@@ -20,12 +18,17 @@ struct PlayerView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             HStack {
-                PlayerButton(isPlaying: $isPlaying, progress: $playerProgress) {
-                    if !musicLoaded {
+                Image(systemName: "backward.end.fill")
+                    .onTapGesture {
+                        playerService.rewindMusic()
+                    }
+                
+                PlayerButton(isPlaying: $playerService.isPlaying, progress: $playerProgress) {
+                    if !playerService.musicLoaded {
                         playerService.startAudio()
-                        musicLoaded = true
+                        playerService.musicLoaded = true
                     } else {
-                        if isPlaying {
+                        if playerService.isPlaying {
                             playerService.pause()
                         } else {
                             playerService.play()
@@ -35,14 +38,15 @@ struct PlayerView: View {
                 .onReceive(playerService.publisher) { currentTime in
                     playerProgress = CGFloat(currentTime)
                 }
-                .onReceive(playerService.musicEnded) { value in
-                    if value {
-                        isPlaying = false
-                    }
-                }
                 .padding()
                 .frame(maxWidth: 80)
+                
+                Image(systemName: "forward.end.fill")
+                    .onTapGesture {
+                        playerService.nextMusic()
+                    }
             }
+            .padding()
         }
     }
 }
