@@ -23,7 +23,7 @@ struct ContentView: View {
             showPlayer = true
         }
         .sheet(isPresented: $showPlayer) {
-            PlayerScreen()
+            PlayerView()
         }
     }
 }

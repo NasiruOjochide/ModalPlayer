@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlayerScreen: View {
+struct PlayerView: View {
     
     @EnvironmentObject var playerService: PlayerService
     @State private var isPlaying: Bool = false
@@ -49,6 +49,7 @@ struct PlayerScreen: View {
 
 struct PlayerScreen_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerScreen()
+        PlayerView()
+            .environmentObject(PlayerService())
     }
 }

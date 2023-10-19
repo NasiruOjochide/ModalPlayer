@@ -11,15 +11,10 @@ import Foundation
 
 class PlayerService: ObservableObject {
     
-    deinit {
-        cancellable?.cancel()
-    }
-    
     private var player: AVPlayer?
     private var session = AVAudioSession.sharedInstance()
-    private var cancellable: AnyCancellable?
-    private var audioPlayer: AVAudioPlayer?
-    var timeOberserToken: Any?
+    private var cancellableSet = Set<AnyCancellable>()
+    private var timeOberserToken: Any?
     let publisher = PassthroughSubject<TimeInterval, Never>()
     let musicEnded = PassthroughSubject<Bool, Never>()
     
@@ -61,11 +56,12 @@ class PlayerService: ObservableObject {
             player = AVPlayer(playerItem: playerItem)
         }
         
-        cancellable = NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
+        NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
             .sink { [weak self] _ in
                 guard let self = self else{ return }
                 self.deactivateSession()
             }
+            .store(in: &cancellableSet)
         
         play()
     }
