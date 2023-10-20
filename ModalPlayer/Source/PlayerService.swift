@@ -101,23 +101,29 @@ class PlayerService: ObservableObject {
         guard let player,
         let currentTime = player.currentItem?.currentTime().seconds else { return }
         if currentTime < 4 && musicIndex > 0 {
-            player.pause()
+            pause()
             musicIndex -= 1
             loadMusic()
             play()
         } else {
-            player.currentItem?.seek(to: .zero, completionHandler: nil)
+            if musicIsPlaying {
+                player.currentItem?.seek(to: .zero, completionHandler: nil)
+            } else {
+                play()
+                player.currentItem?.seek(to: .zero, completionHandler: nil)
+                musicIsPlaying = true
+            }
         }
-        
     }
     
     func nextMusic() {
-        guard let player else { return }
+        guard let _ = player else { return }
         if musicIndex < (musicTracks.count - 1) {
-            player.pause()
+            pause()
             musicIndex += 1
             loadMusic()
             play()
+            musicIsPlaying = true
         }
     }
     
