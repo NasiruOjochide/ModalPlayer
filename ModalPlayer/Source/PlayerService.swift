@@ -13,6 +13,7 @@ class PlayerService: ObservableObject {
     
     @Published var isPlaying: Bool = false
     @Published var musicLoaded: Bool = false
+    @Published var musicTracks: [TrackModel] = []
     private var player: AVPlayer?
     private var playerItem: AVPlayerItem?
     private var session = AVAudioSession.sharedInstance()
@@ -21,11 +22,6 @@ class PlayerService: ObservableObject {
     private var musicURL: URL?
     private var musicIndex = 0
     let publisher = PassthroughSubject<TimeInterval, Never>()
-    let allMusic: [String] = [
-        "https://samples-files.com/samples/Audio/mp3/sample-file-4.mp3",
-        "https://mp3bob.ru/download/muz/Rum-pum-pum.mp3",
-        "https://file-examples.com/storage/fef431be58652d8e49c225d/2017/11/file_example_MP3_700KB.mp3"
-    ]
     
     private func activateSession() {
         do {
@@ -54,25 +50,27 @@ class PlayerService: ObservableObject {
     
     func startAudio() {
         //activate our session before playing audio
-        activateSession()
-        
-        loadMusic()
-        
-        NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
-            .sink { [weak self] _ in
-                guard let self else{ return }
-                if self.musicIndex == (self.allMusic.count - 1) {
-                    self.isPlaying = false
-                    self.publisher.send(0)
-                    self.musicLoaded = false
-                    self.deactivateSession()
-                } else {
-                    self.nextMusic()
+        if !musicTracks.isEmpty {
+            activateSession()
+            
+            loadMusic()
+            
+            NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
+                .sink { [weak self] _ in
+                    guard let self else{ return }
+                    if self.musicIndex == (self.musicTracks.count - 1) {
+                        self.isPlaying = false
+                        self.publisher.send(0)
+                        self.musicLoaded = false
+                        self.deactivateSession()
+                    } else {
+                        self.nextMusic()
+                    }
                 }
-            }
-            .store(in: &cancellableSet)
-        
-        play()
+                .store(in: &cancellableSet)
+            
+            play()
+        }
     }
     
     func play() {
@@ -106,8 +104,9 @@ class PlayerService: ObservableObject {
     }
     
     func nextMusic() {
-        if musicIndex < (allMusic.count - 1) {
-            player?.pause()
+        guard let player else { return }
+        if musicIndex < (musicTracks.count - 1) {
+            player.pause()
             musicIndex += 1
             loadMusic()
             play()
@@ -115,7 +114,7 @@ class PlayerService: ObservableObject {
     }
     
     func loadMusic() {
-        musicURL = URL(string: allMusic[musicIndex])
+        musicURL = URL(string: musicTracks[musicIndex].url)
         playerItem = AVPlayerItem(url: musicURL!)
         if let player {
             player.replaceCurrentItem(with: playerItem)
