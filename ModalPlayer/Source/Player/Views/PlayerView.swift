@@ -19,7 +19,7 @@ struct PlayerView: View {
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Text("Hello by Adele")
+            Text(playerService.currentTrack?.title ?? "No track Playing")
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             HStack {
@@ -28,19 +28,19 @@ struct PlayerView: View {
                         playerService.rewindMusic()
                     }
                 
-                PlayerButton(isPlaying: $playerService.isPlaying, progress: $playerProgress) {
-                    if !playerService.musicLoaded {
+                PlayerButton(isPlaying: $playerService.musicIsPlaying, progress: $playerProgress) {
+                    if !playerService.trackReadyToPlay {
                         playerService.startAudio()
-                        playerService.musicLoaded = true
+                        playerService.trackReadyToPlay = true
                     } else {
-                        if playerService.isPlaying {
+                        if playerService.musicIsPlaying {
                             playerService.pause()
                         } else {
                             playerService.play()
                         }
                     }
                 }
-                .onReceive(playerService.publisher) { currentTime in
+                .onReceive(playerService.musicProgressPublisher) { currentTime in
                     playerProgress = CGFloat(currentTime)
                 }
                 .padding()

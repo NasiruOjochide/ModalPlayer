@@ -11,17 +11,16 @@ import Foundation
 
 class PlayerService: ObservableObject {
     
-    @Published var isPlaying: Bool = false
-    @Published var musicLoaded: Bool = false
+    @Published var musicIsPlaying: Bool = false
+    @Published var trackReadyToPlay: Bool = false
+    @Published var currentTrack: TrackModel?
     private var player: AVPlayer?
-    private var playerItem: AVPlayerItem?
     private var session = AVAudioSession.sharedInstance()
     private var cancellableSet = Set<AnyCancellable>()
     private var timeOberserToken: Any?
-    private var musicURL: URL?
     private var musicIndex = 0
     var musicTracks: [TrackModel] = []
-    let publisher = PassthroughSubject<TimeInterval, Never>()
+    let musicProgressPublisher = PassthroughSubject<TimeInterval, Never>()
     
     private func activateSession() {
         do {
@@ -59,9 +58,9 @@ class PlayerService: ObservableObject {
                 .sink { [weak self] _ in
                     guard let self else{ return }
                     if self.musicIndex == (self.musicTracks.count - 1) {
-                        self.isPlaying = false
-                        self.publisher.send(0)
-                        self.musicLoaded = false
+                        self.musicIsPlaying = false
+                        self.musicProgressPublisher.send(0)
+                        self.trackReadyToPlay = false
                         self.deactivateSession()
                     } else {
                         self.nextMusic()
@@ -80,7 +79,7 @@ class PlayerService: ObservableObject {
             guard let self else { return }
             if time.seconds < self.getAudioDuration() {
                 let progress = time.seconds / self.getAudioDuration()
-                self.publisher.send(progress)
+                self.musicProgressPublisher.send(progress)
             }
         }
     }
@@ -99,8 +98,17 @@ class PlayerService: ObservableObject {
     }
     
     func rewindMusic() {
-        guard let player else { return }
-        player.currentItem?.seek(to: .zero, completionHandler: nil)
+        guard let player,
+        let currentTime = player.currentItem?.currentTime().seconds else { return }
+        if currentTime < 4 && musicIndex > 0 {
+            player.pause()
+            musicIndex -= 1
+            loadMusic()
+            play()
+        } else {
+            player.currentItem?.seek(to: .zero, completionHandler: nil)
+        }
+        
     }
     
     func nextMusic() {
@@ -114,8 +122,10 @@ class PlayerService: ObservableObject {
     }
     
     func loadMusic() {
-        musicURL = URL(string: musicTracks[musicIndex].url)
-        playerItem = AVPlayerItem(url: musicURL!)
+        guard musicIndex < musicTracks.count,
+              let trackURL = URL(string: musicTracks[musicIndex].url) else { return }
+        currentTrack = musicTracks[musicIndex]
+        let playerItem = AVPlayerItem(url: trackURL)
         if let player {
             player.replaceCurrentItem(with: playerItem)
         } else {
