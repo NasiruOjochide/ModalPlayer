@@ -13,7 +13,6 @@ class PlayerService: ObservableObject {
     
     @Published var isPlaying: Bool = false
     @Published var musicLoaded: Bool = false
-    @Published var musicTracks: [TrackModel] = []
     private var player: AVPlayer?
     private var playerItem: AVPlayerItem?
     private var session = AVAudioSession.sharedInstance()
@@ -21,6 +20,7 @@ class PlayerService: ObservableObject {
     private var timeOberserToken: Any?
     private var musicURL: URL?
     private var musicIndex = 0
+    var musicTracks: [TrackModel] = []
     let publisher = PassthroughSubject<TimeInterval, Never>()
     
     private func activateSession() {

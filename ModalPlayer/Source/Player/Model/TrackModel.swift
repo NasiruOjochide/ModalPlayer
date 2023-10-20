@@ -8,7 +8,7 @@
 import Foundation
 
 struct TrackModel {
-    var id: Int
-    var title: String
-    var url: String
+    let id: Int
+    let title: String
+    let url: String
 }
