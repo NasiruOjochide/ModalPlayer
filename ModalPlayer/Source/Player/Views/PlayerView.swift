@@ -14,7 +14,7 @@ struct PlayerView: View {
     @State private var trackList: [TrackModel] = [
         .init(id: 1, title: "Sample 1", url: "https://samples-files.com/samples/Audio/mp3/sample-file-4.mp3"),
         .init(id: 2, title: "Sample 2", url: "https://mp3bob.ru/download/muz/Rum-pum-pum.mp3"),
-        .init(id: 3, title: "Sample 3", url: "https://file-examples.com/storage/fef431be58652d8e49c225d/2017/11/file_example_MP3_700KB.mp3")
+        .init(id: 3, title: "Sample 3", url: "https://download.samplelib.com/mp3/sample-9s.mp3")
     ]
     
     var body: some View {
@@ -25,7 +25,7 @@ struct PlayerView: View {
             HStack {
                 Image(systemName: "backward.end.fill")
                     .onTapGesture {
-                        playerService.rewindMusic()
+                        playerService.rewindAction()
                     }
                 
                 PlayerButton(isPlaying: $playerService.musicIsPlaying, progress: $playerProgress) {

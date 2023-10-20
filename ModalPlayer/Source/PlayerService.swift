@@ -38,7 +38,7 @@ class PlayerService: ObservableObject {
         } catch _ {}
     }
     
-    func deactivateSession() {
+    private func deactivateSession() {
         do {
             try session.setActive(false, options: .notifyOthersOnDeactivation)
             print("deactivation successful")
@@ -93,26 +93,43 @@ class PlayerService: ObservableObject {
         }
     }
     
-    func getAudioDuration() -> Double {
+    private func getAudioDuration() -> Double {
         return player?.currentItem?.duration.seconds ?? 1
     }
     
-    func rewindMusic() {
+    func rewindAction() {
+        if musicIsPlaying {
+            rewindOnMusicPlaying()
+        } else {
+            rewindOnMusicPaused()
+        }
+    }
+    
+    private func loadPreviousMusic() {
+        pause()
+        musicIndex -= 1
+        loadMusic()
+    }
+    
+    private func rewindOnMusicPaused() {
+        guard let player else { return }
+        if musicIndex > 0 {
+            loadPreviousMusic()
+        } else {
+            player.currentItem?.seek(to: .zero, completionHandler: nil)
+        }
+        play()
+        musicIsPlaying = true
+    }
+    
+    private func rewindOnMusicPlaying() {
         guard let player,
-        let currentTime = player.currentItem?.currentTime().seconds else { return }
+              let currentTime = player.currentItem?.currentTime().seconds else { return }
         if currentTime < 4 && musicIndex > 0 {
-            pause()
-            musicIndex -= 1
-            loadMusic()
+            loadPreviousMusic()
             play()
         } else {
-            if musicIsPlaying {
-                player.currentItem?.seek(to: .zero, completionHandler: nil)
-            } else {
-                play()
-                player.currentItem?.seek(to: .zero, completionHandler: nil)
-                musicIsPlaying = true
-            }
+            player.currentItem?.seek(to: .zero, completionHandler: nil)
         }
     }
     
@@ -127,7 +144,7 @@ class PlayerService: ObservableObject {
         }
     }
     
-    func loadMusic() {
+    private func loadMusic() {
         guard musicIndex < musicTracks.count,
               let trackURL = URL(string: musicTracks[musicIndex].url) else { return }
         currentTrack = musicTracks[musicIndex]
