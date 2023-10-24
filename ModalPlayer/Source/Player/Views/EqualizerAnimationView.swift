@@ -35,9 +35,8 @@ struct EqualizerAnimationView: View {
     }
     
     func columnHeight(columnIndex: Int) -> CGFloat {
-        var divisor = CGFloat(Int.random(in: 1...3))
-        return columnIndex % 2 == 0 ? (evenColumnsHeight / divisor)
-        : (oddColumnsHeight / divisor)
+        return (columnIndex % 2 == 0 ? evenColumnsHeight
+        : oddColumnsHeight) / CGFloat(Int.random(in: 1...3))
     }
 }
 
