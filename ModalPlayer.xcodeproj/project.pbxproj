@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		29227BD02ABD9AC700383C31 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29227BCF2ABD9AC700383C31 /* PlayerView.swift */; };
+		292CA2BC2AE7C0DB003A9AE0 /* TracksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292CA2BB2AE7C0DB003A9AE0 /* TracksListView.swift */; };
 		293703532AE2722B008D8729 /* TrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293703522AE2722B008D8729 /* TrackModel.swift */; };
 		2963634D2ABD667000B64376 /* ModalPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963634C2ABD667000B64376 /* ModalPlayerApp.swift */; };
 		2963634F2ABD667000B64376 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963634E2ABD667000B64376 /* ContentView.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		29227BCF2ABD9AC700383C31 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		292CA2BB2AE7C0DB003A9AE0 /* TracksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksListView.swift; sourceTree = "<group>"; };
 		293703522AE2722B008D8729 /* TrackModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackModel.swift; sourceTree = "<group>"; };
 		296363492ABD667000B64376 /* ModalPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModalPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2963634C2ABD667000B64376 /* ModalPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPlayerApp.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				2963635C2ABD66E300B64376 /* PlayerButton.swift */,
 				29227BCF2ABD9AC700383C31 /* PlayerView.swift */,
+				292CA2BB2AE7C0DB003A9AE0 /* TracksListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2963635D2ABD66E300B64376 /* PlayerButton.swift in Sources */,
+				292CA2BC2AE7C0DB003A9AE0 /* TracksListView.swift in Sources */,
 				293703532AE2722B008D8729 /* TrackModel.swift in Sources */,
 				296A49A32AC6262300FF8017 /* PlayerService.swift in Sources */,
 				2963634F2ABD667000B64376 /* ContentView.swift in Sources */,

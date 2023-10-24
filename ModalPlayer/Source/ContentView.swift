@@ -12,19 +12,29 @@ struct ContentView: View {
     @State private var showPlayer: Bool = false
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
-        .onTapGesture {
-            showPlayer = true
-        }
-        .sheet(isPresented: $showPlayer) {
-            PlayerView()
-                .presentationDetents([.medium])
+        NavigationStack {
+            VStack {
+                Group{
+                    Image(systemName: "globe")
+                        .imageScale(.large)
+                        .foregroundColor(.accentColor)
+                    Text("Hello, world!")
+                }
+                .onTapGesture {
+                    showPlayer = true
+                }
+                
+                NavigationLink("Show all tracks") {
+                    TracksListView()
+                }
+                .padding()
+            }
+            .padding()
+            .sheet(isPresented: $showPlayer) {
+                PlayerView()
+                    .presentationDetents([.medium])
+            }
+            .navigationTitle("Home")
         }
     }
 }
