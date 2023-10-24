@@ -19,31 +19,7 @@ struct TracksListView: View {
     var body: some View {
         List {
             ForEach(trackList, id: \.id) { track in
-                HStack {
-                    ZStack(alignment: .bottom) {
-                        if showAnimation {
-                            EqualizerAnimationView()
-                                .opacity(0.5)
-                        }
-                        VStack {
-                            Image(systemName: "music.note")
-                        }
-                        .padding()
-                    }
-                    .frame(width: 60, height: 60)
-                    .border(.red, width: 1)
-                    .padding(.trailing)
-                    .onTapGesture {
-                        showAnimation.toggle()
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text(track.trackTitle)
-                            .bold()
-                        Text(track.artistName)
-                            .fontWeight(.light)
-                    }
-                }
+                TrackListCell(track: track)
             }
         }
     }
