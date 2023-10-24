@@ -8,21 +8,22 @@
 import SwiftUI
 
 struct EqualizerAnimationView: View {
+    
     @State private var columnHeight: CGFloat = 100
-    
-    let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
-    
+        
     var body: some View {
         HStack(alignment: .bottom) {
             ForEach(1..<5) { item in
                 VStack {}
-                    .frame(width: 30, height: (columnHeight / CGFloat (Int.random(in: 1...3))))
+                    .frame(width: 30, height: (columnHeight / CGFloat (Int.random(in: 1...5))))
                 .background(.red)
                 .padding()
             }
         }
-        .onReceive(timer) { time in
-            columnHeight = CGFloat(Int.random(in: 30...100))
+        .onAppear {
+            withAnimation(.easeInOut.speed(0.4).repeatForever()) {
+                columnHeight = CGFloat(Int.random(in: 50...100))
+            }
         }
     }
 }
