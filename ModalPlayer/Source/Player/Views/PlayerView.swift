@@ -18,7 +18,7 @@ struct PlayerView: View {
     ]
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
+        ZStack(alignment: .bottom) {
             VStack {
                 if playerService.currentTrack == nil {
                     Text("Click play button")

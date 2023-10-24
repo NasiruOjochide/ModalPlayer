@@ -146,6 +146,7 @@ class PlayerService: ObservableObject {
         guard musicIndex < musicTracks.count,
               let trackURL = URL(string: musicTracks[musicIndex].trackURL) else { return }
         currentTrack = musicTracks[musicIndex]
+        musicProgressPublisher.send(0)
         let playerItem = AVPlayerItem(url: trackURL)
         if let player {
             player.replaceCurrentItem(with: playerItem)

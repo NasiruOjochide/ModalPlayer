@@ -24,6 +24,7 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showPlayer) {
             PlayerView()
+                .presentationDetents([.medium])
         }
     }
 }
