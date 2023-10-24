@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EqualizerAnimationView: View {
-    @Environment(\.refresh) var refresh
     @State private var columnHeight: CGFloat = 100
     
     let timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
