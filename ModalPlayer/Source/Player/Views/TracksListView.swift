@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TracksListView: View {
     
+    @EnvironmentObject var playerService: PlayerService
     @State private var showAnimation: Bool = true
     var trackList: [TrackModel] = [
         .init(id: 1, artistName: "Artist 1", trackTitle: "Sample 1", trackURL: "https://samples-files.com/samples/Audio/mp3/sample-file-4.mp3"),
@@ -19,8 +20,11 @@ struct TracksListView: View {
     var body: some View {
         List {
             ForEach(trackList, id: \.id) { track in
-                TrackListCell(track: track)
+                TrackListCell(playerService: playerService, track: track)
             }
+        }
+        .onAppear {
+            playerService.musicTracks = trackList
         }
     }
 }
@@ -28,5 +32,6 @@ struct TracksListView: View {
 struct TracksListView_Previews: PreviewProvider {
     static var previews: some View {
         TracksListView()
+            .environmentObject(PlayerService())
     }
 }

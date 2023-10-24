@@ -47,12 +47,12 @@ class PlayerService: ObservableObject {
         }
     }
     
-    func startAudio() {
+    func startAudio(track: TrackModel?) {
         //activate our session before playing audio
         if !musicTracks.isEmpty {
             activateSession()
             
-            loadMusic()
+            loadMusic(track: track)
             
             NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
                 .sink { [weak self] _ in
@@ -75,6 +75,7 @@ class PlayerService: ObservableObject {
     func play() {
         guard let player else { return }
         player.play()
+        musicIsPlaying = true
         timeOberserToken = player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.5, preferredTimescale: 600), queue: nil) { [weak self] time in
             guard let self else { return }
             if time.seconds < self.getAudioDuration() {
@@ -87,6 +88,7 @@ class PlayerService: ObservableObject {
     func pause() {
         guard let player else { return }
         player.pause()
+        musicIsPlaying = false
         if let token = timeOberserToken {
             player.removeTimeObserver(token)
             timeOberserToken = nil
@@ -108,7 +110,7 @@ class PlayerService: ObservableObject {
     private func loadPreviousMusic() {
         pause()
         musicIndex -= 1
-        loadMusic()
+        loadMusic(track: nil)
     }
     
     private func rewindOnMusicPaused() {
@@ -136,16 +138,23 @@ class PlayerService: ObservableObject {
         if musicIndex < (musicTracks.count - 1) {
             pause()
             musicIndex += 1
-            loadMusic()
+            loadMusic(track: nil)
             play()
             musicIsPlaying = true
         }
     }
     
-    private func loadMusic() {
-        guard musicIndex < musicTracks.count,
-              let trackURL = URL(string: musicTracks[musicIndex].trackURL) else { return }
-        currentTrack = musicTracks[musicIndex]
+    private func loadMusic(track: TrackModel?) {
+        var trackURL: URL?
+        if let track {
+            trackURL = URL(string: track.trackURL)
+            currentTrack = track
+        } else {
+            guard musicIndex < musicTracks.count else { return }
+            trackURL = URL(string: musicTracks[musicIndex].trackURL)
+            currentTrack = musicTracks[musicIndex]
+        }
+        guard let trackURL else { return }
         musicProgressPublisher.send(0)
         let playerItem = AVPlayerItem(url: trackURL)
         if let player {

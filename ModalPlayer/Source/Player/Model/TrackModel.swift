@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TrackModel {
+struct TrackModel: Equatable {
     let id: Int
     let artistName: String
     let trackTitle: String

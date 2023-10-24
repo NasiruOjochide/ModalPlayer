@@ -10,6 +10,7 @@ import SwiftUI
 struct TrackListCell: View {
     
     @State private var showAnimation: Bool = false
+    var playerService: PlayerService
     var track: TrackModel
     
     var body: some View {
@@ -28,8 +29,27 @@ struct TrackListCell: View {
             .border(.red, width: 1)
             .padding(.trailing)
             .onTapGesture {
-                showAnimation.toggle()
+                if playerService.currentTrack?.id == track.id {
+                    if playerService.musicIsPlaying {
+                        playerService.pause()
+                        print("pause music")
+                    } else {
+                        playerService.play()
+                        print("play music")
+                    }
+                } else {
+                    playerService.pause()
+                    playerService.startAudio(track: track)
+                    print("music started")
+                }
+                
+                showAnimation = playerService.musicIsPlaying
             }
+            .onReceive(playerService.$musicIsPlaying, perform: { _ in
+                if playerService.currentTrack != track {
+                    showAnimation = false
+                }
+            })
             
             VStack(alignment: .leading) {
                 Text(track.trackTitle)
@@ -39,11 +59,10 @@ struct TrackListCell: View {
             }
         }
     }
-    
 }
 
 struct TrackListCell_Previews: PreviewProvider {
     static var previews: some View {
-        TrackListCell(track: .init(id: 1, artistName: "sample 1", trackTitle: "sample 1", trackURL: ""))
+        TrackListCell(playerService: PlayerService(), track: .init(id: 1, artistName: "sample 1", trackTitle: "sample 1", trackURL: ""))
     }
 }
