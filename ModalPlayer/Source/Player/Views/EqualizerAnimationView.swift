@@ -9,24 +9,36 @@ import SwiftUI
 
 struct EqualizerAnimationView: View {
     
-    @State private var columnHeight: CGFloat = 30
+    @State private var evenColumnsHeight: CGFloat = 30
+    @State private var oddColumnsHeight: CGFloat = 100
     
     var body: some View {
         HStack {
-            ForEach(0..<4) { _ in
-                VStack {
-                    Spacer()
-                    VStack {}
-                        .frame(width: 30, height: (columnHeight / CGFloat (Int.random(in: 1...3))))
-                        .background(.red)
-                        .padding()
+            ForEach(0..<4) { column in
+                if column % 2 == 0 {
+                    VStack {
+                        Spacer()
+                        VStack {}
+                            .frame(width: 30, height: (evenColumnsHeight / CGFloat (Int.random(in: 1...3))))
+                            .background(.red)
+                            .padding()
+                    }
+                } else {
+                    VStack {
+                        Spacer()
+                        VStack {}
+                            .frame(width: 30, height: (oddColumnsHeight / CGFloat (Int.random(in: 1...3))))
+                            .background(.red)
+                            .padding()
+                    }
                 }
             }
         }
         .frame(height: 200)
         .onAppear {
             withAnimation(.easeInOut.speed(0.4).repeatForever()) {
-                columnHeight = 100
+                oddColumnsHeight = 30
+                evenColumnsHeight = 100
             }
         }
         
