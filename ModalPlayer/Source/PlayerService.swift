@@ -118,8 +118,6 @@ class PlayerService: ObservableObject {
         } else {
             player.currentItem?.seek(to: .zero, completionHandler: nil)
         }
-        play()
-        musicIsPlaying = true
     }
     
     private func rewindOnMusicPlaying() {
@@ -146,7 +144,7 @@ class PlayerService: ObservableObject {
     
     private func loadMusic() {
         guard musicIndex < musicTracks.count,
-              let trackURL = URL(string: musicTracks[musicIndex].url) else { return }
+              let trackURL = URL(string: musicTracks[musicIndex].trackURL) else { return }
         currentTrack = musicTracks[musicIndex]
         let playerItem = AVPlayerItem(url: trackURL)
         if let player {

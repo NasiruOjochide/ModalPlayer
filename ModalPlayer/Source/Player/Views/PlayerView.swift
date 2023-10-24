@@ -12,15 +12,25 @@ struct PlayerView: View {
     @EnvironmentObject var playerService: PlayerService
     @State private var playerProgress: CGFloat = 0.0
     @State private var trackList: [TrackModel] = [
-        .init(id: 1, title: "Sample 1", url: "https://samples-files.com/samples/Audio/mp3/sample-file-4.mp3"),
-        .init(id: 2, title: "Sample 2", url: "https://mp3bob.ru/download/muz/Rum-pum-pum.mp3"),
-        .init(id: 3, title: "Sample 3", url: "https://download.samplelib.com/mp3/sample-9s.mp3")
+        .init(id: 1, artistName: "Artist 1", trackTitle: "Sample 1", trackURL: "https://samples-files.com/samples/Audio/mp3/sample-file-4.mp3"),
+        .init(id: 2, artistName: "Artist 2", trackTitle: "Sample 2", trackURL: "https://mp3bob.ru/download/muz/Rum-pum-pum.mp3"),
+        .init(id: 3, artistName: "Artist 3", trackTitle: "Sample 3", trackURL: "https://download.samplelib.com/mp3/sample-9s.mp3")
     ]
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Text(playerService.currentTrack?.title ?? "No track Playing")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            VStack {
+                if playerService.currentTrack == nil {
+                    Text("Click play button")
+                } else {
+                    Text(playerService.currentTrack?.artistName ?? "Unknown Artist")
+                        .font(.title.bold())
+                        .padding()
+                    Text(playerService.currentTrack?.trackTitle ?? "No track Playing")
+                        .italic()
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             HStack {
                 Image(systemName: "backward.end.fill")

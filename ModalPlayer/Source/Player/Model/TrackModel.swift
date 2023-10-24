@@ -9,6 +9,7 @@ import Foundation
 
 struct TrackModel {
     let id: Int
-    let title: String
-    let url: String
+    let artistName: String
+    let trackTitle: String
+    let trackURL: String
 }
