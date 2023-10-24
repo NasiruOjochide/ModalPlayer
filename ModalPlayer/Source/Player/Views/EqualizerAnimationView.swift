@@ -15,22 +15,12 @@ struct EqualizerAnimationView: View {
     var body: some View {
         HStack {
             ForEach(0..<4) { column in
-                if column % 2 == 0 {
-                    VStack {
-                        Spacer()
-                        VStack {}
-                            .frame(width: 5, height: columnHeight(isEven: true))
-                            .background(.red)
-                            .padding(.horizontal, 2)
-                    }
-                } else {
-                    VStack {
-                        Spacer()
-                        VStack {}
-                            .frame(width: 5, height: columnHeight(isEven: false))
-                            .background(.red)
-                            .padding(.horizontal, 2)
-                    }
+                VStack {
+                    Spacer()
+                    VStack {}
+                        .frame(width: 5, height: columnHeight(columnIndex: column))
+                        .background(.red)
+                        .padding(.horizontal, 2)
                 }
             }
         }
@@ -44,12 +34,9 @@ struct EqualizerAnimationView: View {
         
     }
     
-    func columnHeight(isEven: Bool) -> CGFloat {
-        if isEven {
-            return (evenColumnsHeight / CGFloat (Int.random(in: 1...3)))
-        } else {
-            return (oddColumnsHeight / CGFloat (Int.random(in: 1...3)))
-        }
+    func columnHeight(columnIndex: Int) -> CGFloat {
+        columnIndex % 2 == 0 ? (evenColumnsHeight / CGFloat (Int.random(in: 1...3)))
+        : (oddColumnsHeight / CGFloat (Int.random(in: 1...3)))
     }
 }
 
