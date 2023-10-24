@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TracksListView: View {
     
+    @State private var showAnimation: Bool = true
     var trackList: [TrackModel] = [
         .init(id: 1, artistName: "Artist 1", trackTitle: "Sample 1", trackURL: "https://samples-files.com/samples/Audio/mp3/sample-file-4.mp3"),
         .init(id: 2, artistName: "Artist 2", trackTitle: "Sample 2", trackURL: "https://mp3bob.ru/download/muz/Rum-pum-pum.mp3"),
@@ -17,10 +18,24 @@ struct TracksListView: View {
     
     var body: some View {
         List {
-            ForEach(trackList, id: \.id) {track in
+            ForEach(trackList, id: \.id) { track in
                 HStack {
-                    Image(systemName: "music.note")
-                        .padding(.trailing)
+                    ZStack(alignment: .bottom) {
+                        if showAnimation {
+                            EqualizerAnimationView()
+                                .opacity(0.5)
+                        }
+                        VStack {
+                            Image(systemName: "music.note")
+                        }
+                        .padding()
+                    }
+                    .frame(width: 60, height: 60)
+                    .border(.red, width: 1)
+                    .padding(.trailing)
+                    .onTapGesture {
+                        showAnimation.toggle()
+                    }
                     
                     VStack(alignment: .leading) {
                         Text(track.trackTitle)
