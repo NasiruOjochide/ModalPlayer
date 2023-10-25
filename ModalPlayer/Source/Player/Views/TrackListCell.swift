@@ -10,7 +10,7 @@ import SwiftUI
 struct TrackListCell: View {
     
     @State private var showAnimation: Bool = false
-    var playerService: PlayerService
+    @EnvironmentObject var playerService: PlayerService
     var track: TrackModel
     
     var body: some View {
@@ -63,6 +63,7 @@ struct TrackListCell: View {
 
 struct TrackListCell_Previews: PreviewProvider {
     static var previews: some View {
-        TrackListCell(playerService: PlayerService(), track: .init(id: 1, artistName: "sample 1", trackTitle: "sample 1", trackURL: ""))
+        TrackListCell(track: .init(id: 1, artistName: "sample 1", trackTitle: "sample 1", trackURL: ""))
+            .environmentObject(PlayerService())
     }
 }

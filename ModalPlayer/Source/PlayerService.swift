@@ -49,7 +49,8 @@ class PlayerService: ObservableObject {
     
     func startAudio(track: TrackModel?) {
         //activate our session before playing audio
-        if !musicTracks.isEmpty {
+        
+        if !musicTracks.isEmpty || track != nil {
             activateSession()
             
             loadMusic(track: track)
