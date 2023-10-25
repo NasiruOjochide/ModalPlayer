@@ -35,7 +35,6 @@ struct PlayerButton: View {
             }
             .onTapGesture {
                 playSound()
-                isPlaying.toggle()
             }
         
     }

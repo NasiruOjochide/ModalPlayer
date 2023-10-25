@@ -40,7 +40,7 @@ struct PlayerView: View {
                 
                 PlayerButton(isPlaying: $playerService.musicIsPlaying, progress: $playerProgress) {
                     if !playerService.trackReadyToPlay {
-                        playerService.startAudio(track: nil)
+                        playerService.startAudio(track: trackList[playerService.musicIndex])
                         playerService.trackReadyToPlay = true
                     } else {
                         if playerService.musicIsPlaying {
