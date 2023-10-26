@@ -99,6 +99,7 @@ class PlayerService: ObservableObject {
     }
     
     func rewindAction() {
+        guard !musicTracks.isEmpty else { return }
         if musicIsPlaying {
             rewindOnMusicPlaying()
         } else {
@@ -133,7 +134,8 @@ class PlayerService: ObservableObject {
     }
     
     func nextMusic() {
-        guard let _ = player else { return }
+        guard let _ = player,
+              !musicTracks.isEmpty else { return }
         if musicIndex < (musicTracks.count - 1) {
             pause()
             musicIndex += 1
@@ -144,7 +146,7 @@ class PlayerService: ObservableObject {
     }
     
     private func loadMusic(track: TrackModel) {
-        var trackURL = URL(string: track.trackURL)
+        let trackURL = URL(string: track.trackURL)
         guard let trackURL else { return }
         currentTrack = track
         musicProgressPublisher.send(0)
