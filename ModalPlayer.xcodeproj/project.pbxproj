@@ -18,7 +18,19 @@
 		296363552ABD667100B64376 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 296363542ABD667100B64376 /* Preview Assets.xcassets */; };
 		2963635D2ABD66E300B64376 /* PlayerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963635C2ABD66E300B64376 /* PlayerButton.swift */; };
 		296A49A32AC6262300FF8017 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A49A22AC6262300FF8017 /* PlayerService.swift */; };
+		29C8D3832AEA7F4B00074EE0 /* ModalPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C8D3822AEA7F4B00074EE0 /* ModalPlayerTests.swift */; };
+		29C8D38A2AEA7FFE00074EE0 /* PlayerService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C8D3892AEA7FFE00074EE0 /* PlayerService_Tests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		29C8D3842AEA7F4B00074EE0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 296363412ABD667000B64376 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 296363482ABD667000B64376;
+			remoteInfo = ModalPlayer;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		29227BCF2ABD9AC700383C31 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
@@ -35,10 +47,20 @@
 		2963635C2ABD66E300B64376 /* PlayerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerButton.swift; sourceTree = "<group>"; };
 		296A49A22AC6262300FF8017 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
 		296A49A62AC6403400FF8017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		29C8D3802AEA7F4B00074EE0 /* ModalPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModalPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		29C8D3822AEA7F4B00074EE0 /* ModalPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPlayerTests.swift; sourceTree = "<group>"; };
+		29C8D3892AEA7FFE00074EE0 /* PlayerService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService_Tests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		296363462ABD667000B64376 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29C8D37D2AEA7F4B00074EE0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -82,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				2963634B2ABD667000B64376 /* ModalPlayer */,
+				29C8D3812AEA7F4B00074EE0 /* ModalPlayerTests */,
 				2963634A2ABD667000B64376 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				296363492ABD667000B64376 /* ModalPlayer.app */,
+				29C8D3802AEA7F4B00074EE0 /* ModalPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,6 +156,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		29C8D3812AEA7F4B00074EE0 /* ModalPlayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				29C8D3822AEA7F4B00074EE0 /* ModalPlayerTests.swift */,
+				29C8D3892AEA7FFE00074EE0 /* PlayerService_Tests.swift */,
+			);
+			path = ModalPlayerTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -152,6 +185,24 @@
 			productReference = 296363492ABD667000B64376 /* ModalPlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		29C8D37F2AEA7F4B00074EE0 /* ModalPlayerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29C8D3882AEA7F4B00074EE0 /* Build configuration list for PBXNativeTarget "ModalPlayerTests" */;
+			buildPhases = (
+				29C8D37C2AEA7F4B00074EE0 /* Sources */,
+				29C8D37D2AEA7F4B00074EE0 /* Frameworks */,
+				29C8D37E2AEA7F4B00074EE0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				29C8D3852AEA7F4B00074EE0 /* PBXTargetDependency */,
+			);
+			name = ModalPlayerTests;
+			productName = ModalPlayerTests;
+			productReference = 29C8D3802AEA7F4B00074EE0 /* ModalPlayerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -164,6 +215,10 @@
 				TargetAttributes = {
 					296363482ABD667000B64376 = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					29C8D37F2AEA7F4B00074EE0 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 296363482ABD667000B64376;
 					};
 				};
 			};
@@ -181,6 +236,7 @@
 			projectRoot = "";
 			targets = (
 				296363482ABD667000B64376 /* ModalPlayer */,
+				29C8D37F2AEA7F4B00074EE0 /* ModalPlayerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -192,6 +248,13 @@
 			files = (
 				296363552ABD667100B64376 /* Preview Assets.xcassets in Resources */,
 				296363512ABD667100B64376 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29C8D37E2AEA7F4B00074EE0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +277,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		29C8D37C2AEA7F4B00074EE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29C8D38A2AEA7FFE00074EE0 /* PlayerService_Tests.swift in Sources */,
+				29C8D3832AEA7F4B00074EE0 /* ModalPlayerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		29C8D3852AEA7F4B00074EE0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 296363482ABD667000B64376 /* ModalPlayer */;
+			targetProxy = 29C8D3842AEA7F4B00074EE0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		296363562ABD667100B64376 /* Debug */ = {
@@ -408,6 +488,47 @@
 			};
 			name = Release;
 		};
+		29C8D3862AEA7F4B00074EE0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MBAC55AGH7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nas.ModalPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModalPlayer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ModalPlayer";
+			};
+			name = Debug;
+		};
+		29C8D3872AEA7F4B00074EE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MBAC55AGH7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nas.ModalPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ModalPlayer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ModalPlayer";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -425,6 +546,15 @@
 			buildConfigurations = (
 				296363592ABD667100B64376 /* Debug */,
 				2963635A2ABD667100B64376 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29C8D3882AEA7F4B00074EE0 /* Build configuration list for PBXNativeTarget "ModalPlayerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29C8D3862AEA7F4B00074EE0 /* Debug */,
+				29C8D3872AEA7F4B00074EE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
