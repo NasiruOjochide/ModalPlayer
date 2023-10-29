@@ -50,25 +50,25 @@ class PlayerService: ObservableObject {
     func startAudio(track: TrackModel) {
         //activate our session before playing audio
         
-            activateSession()
-            
-            loadMusic(track: track)
-            
-            NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
-                .sink { [weak self] _ in
-                    guard let self else{ return }
-                    if self.musicIndex == (self.musicTracks.count - 1) {
-                        self.musicIsPlaying = false
-                        self.musicProgressPublisher.send(0)
-                        self.trackReadyToPlay = false
-                        self.deactivateSession()
-                    } else {
-                        self.nextMusic()
-                    }
+        activateSession()
+        
+        loadMusic(track: track)
+        
+        NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
+            .sink { [weak self] _ in
+                guard let self else{ return }
+                if self.musicIndex == (self.musicTracks.count - 1) {
+                    self.musicIsPlaying = false
+                    self.musicProgressPublisher.send(0)
+                    self.trackReadyToPlay = false
+                    self.deactivateSession()
+                } else {
+                    self.nextMusic()
                 }
-                .store(in: &cancellableSet)
-            
-            play()
+            }
+            .store(in: &cancellableSet)
+        
+        play()
     }
     
     func play() {
@@ -136,12 +136,11 @@ class PlayerService: ObservableObject {
     func nextMusic() {
         guard let _ = player,
               !musicTracks.isEmpty else { return }
-        if musicIndex < (musicTracks.count - 1) {
+        if musicIndex < (musicTracks.count - 1) && musicIndex >= 0 {
             pause()
             musicIndex += 1
             loadMusic(track: musicTracks[musicIndex])
             play()
-            musicIsPlaying = true
         }
     }
     
