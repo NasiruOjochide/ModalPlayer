@@ -49,7 +49,9 @@ class PlayerService: ObservableObject {
     
     func startAudio(track: TrackModel) {
         //activate our session before playing audio
-        
+        cancellableSet.forEach {
+            $0.cancel()
+        }
         activateSession()
         
         loadMusic(track: track)
@@ -57,7 +59,7 @@ class PlayerService: ObservableObject {
         NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
             .sink { [weak self] _ in
                 guard let self else{ return }
-                if self.musicIndex == (self.musicTracks.count - 1) {
+                if self.musicIndex == (self.musicTracks.count - 1) || self.musicTracks.isEmpty {
                     self.musicIsPlaying = false
                     self.musicProgressPublisher.send(0)
                     self.trackReadyToPlay = false

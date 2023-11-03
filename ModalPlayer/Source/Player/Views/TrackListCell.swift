@@ -45,9 +45,11 @@ struct TrackListCell: View {
                 
                 showAnimation = playerService.musicIsPlaying
             }
-            .onReceive(playerService.$musicIsPlaying, perform: { _ in
-                if playerService.currentTrack != track {
+            .onReceive(playerService.$musicIsPlaying, perform: {
+                if playerService.currentTrack != track || $0 == false {
                     showAnimation = false
+                } else {
+                    showAnimation = true
                 }
             })
             
