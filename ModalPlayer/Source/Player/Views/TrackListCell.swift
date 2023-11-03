@@ -34,8 +34,12 @@ struct TrackListCell: View {
                         playerService.pause()
                         print("pause music")
                     } else {
-                        playerService.play()
-                        print("play music")
+                        if playerService.trackReadyToPlay {
+                            playerService.play()
+                            print("play music")
+                        } else {
+                            playerService.startAudio(track: track)
+                        }
                     }
                 } else {
                     playerService.pause()

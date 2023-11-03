@@ -42,7 +42,6 @@ struct PlayerView: View {
                     if !playerService.trackReadyToPlay {
                         guard !trackList.isEmpty else { return }
                         playerService.startAudio(track: trackList[playerService.musicIndex])
-                        playerService.trackReadyToPlay = true
                     } else {
                         if playerService.musicIsPlaying {
                             playerService.pause()

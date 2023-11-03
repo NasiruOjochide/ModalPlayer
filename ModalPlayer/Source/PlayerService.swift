@@ -22,6 +22,21 @@ class PlayerService: ObservableObject {
     var musicTracks: [TrackModel] = []
     let musicProgressPublisher = PassthroughSubject<TimeInterval, Never>()
     
+    init() {
+        NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
+            .sink { [weak self] _ in
+                guard let self else{ return }
+                if self.musicIndex == (self.musicTracks.count - 1) || self.musicTracks.isEmpty {
+                    self.pause()
+                    self.musicProgressPublisher.send(0)
+                    self.trackReadyToPlay = false
+                    self.deactivateSession()
+                } else {
+                    self.nextMusic()
+                }
+            }
+            .store(in: &cancellableSet)
+    }
     private func activateSession() {
         do {
             try session.setCategory(
@@ -49,27 +64,9 @@ class PlayerService: ObservableObject {
     
     func startAudio(track: TrackModel) {
         //activate our session before playing audio
-        cancellableSet.forEach {
-            $0.cancel()
-        }
         activateSession()
-        
+        trackReadyToPlay = true
         loadMusic(track: track)
-        
-        NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
-            .sink { [weak self] _ in
-                guard let self else{ return }
-                if self.musicIndex == (self.musicTracks.count - 1) || self.musicTracks.isEmpty {
-                    self.musicIsPlaying = false
-                    self.musicProgressPublisher.send(0)
-                    self.trackReadyToPlay = false
-                    self.deactivateSession()
-                } else {
-                    self.nextMusic()
-                }
-            }
-            .store(in: &cancellableSet)
-        
         play()
     }
     
