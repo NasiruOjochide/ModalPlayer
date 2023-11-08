@@ -11,11 +11,12 @@ struct PlayerButton: View {
     
     @Binding var isPlaying: Bool
     @Binding var progress: CGFloat
+    var buttonColor: Color = .yellow
     var playSound: () -> Void
     
     var body: some View {
         Circle()
-            .fill(.yellow)
+            .fill(buttonColor)
             .overlay {
                 Image(systemName: isPlaying ? "pause.fill" : "play.fill")
             }

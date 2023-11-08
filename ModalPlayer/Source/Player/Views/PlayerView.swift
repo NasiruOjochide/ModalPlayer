@@ -10,38 +10,73 @@ import SwiftUI
 struct PlayerView: View {
     
     @EnvironmentObject var playerService: PlayerService
-    @State private var playerProgress: CGFloat = 0.0
-    @State private var trackList: [TrackModel] = [
-        .init(id: 1, artistName: "Artist 1", trackTitle: "Sample 1", trackURL: "https://samples-files.com/samples/Audio/mp3/sample-file-4.mp3"),
-        .init(id: 2, artistName: "Artist 2", trackTitle: "Sample 2", trackURL: "https://mp3bob.ru/download/muz/Rum-pum-pum.mp3"),
-        .init(id: 3, artistName: "Artist 3", trackTitle: "Sample 3", trackURL: "https://download.samplelib.com/mp3/sample-9s.mp3")
-    ]
+    var config: PlayerViewConfig?
+    
+    init(config: PlayerViewConfig?) {
+        self.config = config
+    }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
+        VStack {
             VStack {
-                if playerService.currentTrack == nil {
-                    Text("Click play button")
-                } else {
-                    Text(playerService.currentTrack?.artistName ?? "Unknown Artist")
-                        .font(.title.bold())
+                VStack {
+                    Spacer()
+                    if playerService.currentTrack == nil {
+                        Text("Click play button")
+                    } else {
+                        VStack {
+                            if(playerService.currentTrack?.trackImage != nil) {
+                                VStack {
+                                    AsyncImage(url: playerService.currentTrack?.trackImage) {
+                                        //trackImage($0)
+                                        $0
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 200)
+                                            .opacity(0.5)
+                                    } placeholder: {
+                                        trackImage(Image(systemName: "music.note"))
+                                        
+                                    }
+                                    if playerService.currentTrack == nil {
+                                        Text("Click play button")
+                                    } else {
+                                        Text(playerService.currentTrack?.artistName ?? "Unknown Artist")
+                                            .font(.title.bold())
+                                        Text(playerService.currentTrack?.trackTitle ?? "No track Playing")
+                                            .italic()
+                                    }
+                                }
+                            } else {
+                                if playerService.currentTrack == nil {
+                                    Text("Click play button")
+                                } else {
+                                    Text(playerService.currentTrack?.artistName ?? "Unknown Artist")
+                                        .font(.title.bold())
+                                    Text(playerService.currentTrack?.trackTitle ?? "No track Playing")
+                                        .italic()
+                                }
+                            }
+                        }
                         .padding()
-                    Text(playerService.currentTrack?.trackTitle ?? "No track Playing")
-                        .italic()
+                    }
+                    Spacer()
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            Spacer()
             
             HStack {
                 Image(systemName: "backward.end.fill")
                     .onTapGesture {
                         playerService.rewindAction()
                     }
+                    .foregroundColor(config?.playerButtonColor)
                 
-                PlayerButton(isPlaying: $playerService.musicIsPlaying, progress: $playerProgress) {
+                PlayerButton(isPlaying: $playerService.musicIsPlaying, progress: $playerService.musicProgress, buttonColor: config?.playerButtonColor ?? .yellow) {
                     if !playerService.trackReadyToPlay {
-                        guard !trackList.isEmpty else { return }
-                        playerService.startAudio(track: trackList[playerService.musicIndex])
+                        guard !playerService.musicTracks.isEmpty else { return }
+                        playerService.startAudio(track: playerService.musicTracks[playerService.musicIndex])
                     } else {
                         if playerService.musicIsPlaying {
                             playerService.pause()
@@ -50,9 +85,6 @@ struct PlayerView: View {
                         }
                     }
                 }
-                .onReceive(playerService.musicProgressPublisher) { currentTime in
-                    playerProgress = CGFloat(currentTime)
-                }
                 .padding()
                 .frame(maxWidth: 80)
                 
@@ -60,18 +92,30 @@ struct PlayerView: View {
                     .onTapGesture {
                         playerService.nextMusic()
                     }
+                    .foregroundColor(config?.playerButtonColor)
             }
-            .padding()
+            .padding(.bottom)
         }
         .onAppear {
-            playerService.musicTracks = trackList
+            playerService.musicTracks = config?.tracklist ?? []
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(config?.playerViewBackgroundColor)
+        .ignoresSafeArea()
+    }
+    
+    func trackImage(_ image: Image) -> some View {
+        image
+            .resizable()
+            .scaledToFit()
+            .frame(width: 200)
+            .opacity(0.5)
     }
 }
 
 struct PlayerScreen_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerView()
-            .environmentObject(PlayerService())
+        PlayerView(config: PlayerViewConfig.exampleConfig)
+        .environmentObject(PlayerService())
     }
 }

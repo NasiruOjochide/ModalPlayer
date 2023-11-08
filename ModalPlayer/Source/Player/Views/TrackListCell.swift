@@ -11,7 +11,7 @@ struct TrackListCell: View {
     
     @State private var showAnimation: Bool = false
     @EnvironmentObject var playerService: PlayerService
-    var track: TrackModel
+    var track: any Track
     
     var body: some View {
         HStack {
@@ -50,7 +50,7 @@ struct TrackListCell: View {
                 showAnimation = playerService.musicIsPlaying
             }
             .onReceive(playerService.$musicIsPlaying, perform: {
-                if playerService.currentTrack != track || $0 == false {
+                if playerService.currentTrack?.id != track.id || $0 == false {
                     showAnimation = false
                 } else {
                     showAnimation = true
@@ -69,7 +69,7 @@ struct TrackListCell: View {
 
 struct TrackListCell_Previews: PreviewProvider {
     static var previews: some View {
-        TrackListCell(track: .init(id: 1, artistName: "sample 1", trackTitle: "sample 1", trackURL: ""))
+        TrackListCell(track: TrackModel.exampleTrack)
             .environmentObject(PlayerService())
     }
 }

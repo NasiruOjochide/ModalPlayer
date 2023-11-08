@@ -20,6 +20,8 @@
 		296A49A32AC6262300FF8017 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296A49A22AC6262300FF8017 /* PlayerService.swift */; };
 		29C8D3832AEA7F4B00074EE0 /* ModalPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C8D3822AEA7F4B00074EE0 /* ModalPlayerTests.swift */; };
 		29C8D38A2AEA7FFE00074EE0 /* PlayerService_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C8D3892AEA7FFE00074EE0 /* PlayerService_Tests.swift */; };
+		29E6E64F2AFAB313007EE466 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6E64E2AFAB313007EE466 /* Track.swift */; };
+		29E6E6512AFAE97C007EE466 /* PlayerViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6E6502AFAE97C007EE466 /* PlayerViewConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		29C8D3802AEA7F4B00074EE0 /* ModalPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModalPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C8D3822AEA7F4B00074EE0 /* ModalPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPlayerTests.swift; sourceTree = "<group>"; };
 		29C8D3892AEA7FFE00074EE0 /* PlayerService_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService_Tests.swift; sourceTree = "<group>"; };
+		29E6E64E2AFAB313007EE466 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		29E6E6502AFAE97C007EE466 /* PlayerViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,8 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				293703542AE27232008D8729 /* Model */,
-				296A49A12AC625F300FF8017 /* ViewModel */,
 				29227BD22ABD9D0700383C31 /* Views */,
+				296A49A22AC6262300FF8017 /* PlayerService.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -96,6 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				293703522AE2722B008D8729 /* TrackModel.swift */,
+				29E6E6502AFAE97C007EE466 /* PlayerViewConfig.swift */,
+				29E6E64E2AFAB313007EE466 /* Track.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -144,16 +150,8 @@
 			children = (
 				29227BD12ABD9C4700383C31 /* Player */,
 				2963634E2ABD667000B64376 /* ContentView.swift */,
-				296A49A22AC6262300FF8017 /* PlayerService.swift */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		296A49A12AC625F300FF8017 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		29C8D3812AEA7F4B00074EE0 /* ModalPlayerTests */ = {
@@ -266,12 +264,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2963635D2ABD66E300B64376 /* PlayerButton.swift in Sources */,
+				29E6E64F2AFAB313007EE466 /* Track.swift in Sources */,
 				292CA2BC2AE7C0DB003A9AE0 /* TracksListView.swift in Sources */,
 				293703532AE2722B008D8729 /* TrackModel.swift in Sources */,
 				296A49A32AC6262300FF8017 /* PlayerService.swift in Sources */,
 				292CA2BE2AE7C861003A9AE0 /* EqualizerAnimationView.swift in Sources */,
 				2963634F2ABD667000B64376 /* ContentView.swift in Sources */,
 				292CA2C02AE8151F003A9AE0 /* TrackListCell.swift in Sources */,
+				29E6E6512AFAE97C007EE466 /* PlayerViewConfig.swift in Sources */,
 				29227BD02ABD9AC700383C31 /* PlayerView.swift in Sources */,
 				2963634D2ABD667000B64376 /* ModalPlayerApp.swift in Sources */,
 			);

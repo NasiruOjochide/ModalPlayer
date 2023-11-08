@@ -13,22 +13,22 @@ class PlayerService: ObservableObject {
     
     @Published var musicIsPlaying: Bool = false
     @Published var trackReadyToPlay: Bool = false
-    @Published var currentTrack: TrackModel?
+    @Published var currentTrack: (any Track)?
+    @Published var musicProgress: CGFloat = 0
     private var player: AVPlayer?
     private var session = AVAudioSession.sharedInstance()
     private var cancellableSet = Set<AnyCancellable>()
     private var timeOberserToken: Any?
     var musicIndex = 0
-    var musicTracks: [TrackModel] = []
-    let musicProgressPublisher = PassthroughSubject<TimeInterval, Never>()
+    var musicTracks: [any Track] = []
     
     init() {
         NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime)
             .sink { [weak self] _ in
-                guard let self else{ return }
+                guard let self else { return }
                 if self.musicIndex == (self.musicTracks.count - 1) || self.musicTracks.isEmpty {
                     self.pause()
-                    self.musicProgressPublisher.send(0)
+                    self.musicProgress = 0
                     self.trackReadyToPlay = false
                     self.deactivateSession()
                 } else {
@@ -62,7 +62,7 @@ class PlayerService: ObservableObject {
         }
     }
     
-    func startAudio(track: TrackModel) {
+    func startAudio(track: any Track) {
         //activate our session before playing audio
         activateSession()
         trackReadyToPlay = true
@@ -78,7 +78,7 @@ class PlayerService: ObservableObject {
             guard let self else { return }
             if time.seconds < self.getAudioDuration() {
                 let progress = time.seconds / self.getAudioDuration()
-                self.musicProgressPublisher.send(progress)
+                self.musicProgress = progress
             }
         }
     }
@@ -143,11 +143,11 @@ class PlayerService: ObservableObject {
         }
     }
     
-    private func loadMusic(track: TrackModel) {
+    private func loadMusic(track: any Track) {
         let trackURL = URL(string: track.trackURL)
         guard let trackURL else { return }
         currentTrack = track
-        musicProgressPublisher.send(0)
+        musicProgress = 0
         let playerItem = AVPlayerItem(url: trackURL)
         if let player {
             player.replaceCurrentItem(with: playerItem)

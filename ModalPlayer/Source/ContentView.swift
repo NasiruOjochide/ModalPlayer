@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var showPlayer: Bool = false
+    var config: PlayerViewConfig? = PlayerViewConfig.exampleConfig
     
     var body: some View {
         NavigationStack {
@@ -31,7 +32,7 @@ struct ContentView: View {
             }
             .padding()
             .sheet(isPresented: $showPlayer) {
-                PlayerView()
+                PlayerView(config: config)
                     .presentationDetents([.medium])
             }
             .navigationTitle("Home")
@@ -42,6 +43,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(PlayerService())
     }
 }
